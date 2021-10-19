@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "14618365-22ea-4bee-bc50-1952d659d0ff",
+		"name": "HDsysBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "criar-conta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titular\":\"Lionel Andrés Messi Cuccittini\",\r\n    \"numero\":\"01\",\r\n    \"agencia\":\"1001\",\r\n    \"saldo\":\"100000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/hdbank/criar-conta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hdbank",
+						"criar-conta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "criar-conta2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titular\":\"Neymar da Silva Santos Júnior\",\r\n    \"numero\":\"02\",\r\n    \"agencia\":\"1002\",\r\n    \"saldo\":\"89000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/hdbank/criar-conta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hdbank",
+						"criar-conta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "criar-conta3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titular\":\"Cristiano Ronaldo Aveiro\",\r\n    \"numero\":\"03\",\r\n    \"agencia\":\"1003\",\r\n    \"saldo\":\"200000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/hdbank/criar-conta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hdbank",
+						"criar-conta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transferencia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idOrigem\":3,\r\n    \"idDestino\":1,\r\n    \"valor\": 18000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/hdbank",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hdbank"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultaSaldo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hdbank/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hdbank",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultaExtrato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/consulta-extrato/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consulta-extrato",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
