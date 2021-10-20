@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.sistema.sistemabancario.entity.Extrato;
+import br.com.sistema.sistemabancario.dto.ExtratoDTO;
 import br.com.sistema.sistemabancario.service.ExtratoService;
 
 @RestController
-@RequestMapping("/consulta-extrato")
+@RequestMapping("/api/extrato")
 public class ExtratoController {
 	@Autowired
 	private ExtratoService extratoService; 
 
-	@GetMapping(path = "/{numeroConta}")
+	@GetMapping(path = "/consultar/{numeroConta}")
 	public ResponseEntity<?> consultaExtrato(@PathVariable Long numeroConta){
 		try {
-			List<Extrato> extratos = extratoService.consultaExtrato(numeroConta);
-			return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
+			List<ExtratoDTO> extratos = extratoService.consultaExtrato(numeroConta);
+			return new ResponseEntity<List<ExtratoDTO>>(extratos, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}	

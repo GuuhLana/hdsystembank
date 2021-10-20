@@ -10,40 +10,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.sistema.sistemabancario.entity.Conta;
+import br.com.sistema.sistemabancario.dto.ContaDTO;
+import br.com.sistema.sistemabancario.model.SaldoResponse;
 import br.com.sistema.sistemabancario.model.transferenciaRequest;
 import br.com.sistema.sistemabancario.service.ContaService;
 
 @RestController
-@RequestMapping("/hdbank")
+@RequestMapping("/api/conta")
 public class ContaController {
 	@Autowired
 	private ContaService contaService;
 
-	@GetMapping(path = "/{id}")
-	public double consultarSaldo(@PathVariable Long id) {
-		return contaService.verificarSaldo(id);
+	@GetMapping(path = "/saldo/{id}")
+	public ResponseEntity<?> consultarSaldo(@PathVariable Long id) {
+		try {
+			SaldoResponse saldo = contaService.verificarSaldo(id);
+			return new ResponseEntity<SaldoResponse>(saldo, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	
-	@PostMapping(path = "/criar-conta")
-	public ResponseEntity<?> criaConta(@RequestBody Conta conta) {
+	@PostMapping(path = "/cadastrar")
+	public ResponseEntity<?> criarConta(@RequestBody ContaDTO dto) {
 		try {
-			contaService.criarConta(conta);
-			return new ResponseEntity<Conta>(conta, HttpStatus.OK);
+			ContaDTO contaDTO = contaService.criarConta(dto);
+			return new ResponseEntity<ContaDTO>(contaDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
 
-	@PostMapping
+	@PostMapping(path = "/transferir")
 	public ResponseEntity<String> transferir(@RequestBody transferenciaRequest request) {
-
 		try {
 			contaService.transferir(request.getIdOrigem(), request.getIdDestino(), request.getValor());
 			return new ResponseEntity<String>("Transferencia realizada com sucesso", HttpStatus.OK);
-
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

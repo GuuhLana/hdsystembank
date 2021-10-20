@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.sistema.sistemabancario.dto.ContaDTO;
 import br.com.sistema.sistemabancario.entity.Conta;
 import br.com.sistema.sistemabancario.entity.Extrato;
+import br.com.sistema.sistemabancario.model.SaldoResponse;
 import br.com.sistema.sistemabancario.repository.ContaRepository;
 import br.com.sistema.sistemabancario.repository.ExtratoRepository;
 
@@ -20,9 +22,11 @@ public class ContaService {
 	@Autowired
 	private ExtratoRepository extratoRepository;
 
-	public double verificarSaldo(Long id) {
+	public SaldoResponse verificarSaldo(Long id) {
 		Optional<Conta> conta = contaRepository.findById(id);
-		return conta.get().getSaldo();
+		SaldoResponse saldo = new SaldoResponse(conta.get().getNumero(), conta.get().getTitular() , conta.get().getSaldo());
+		
+		return saldo;
 	}
 
 	public void transferir(Long origem, Long destino, double valor) {
@@ -46,14 +50,16 @@ public class ContaService {
 
 	}
 
-	public Conta criarConta(Conta conta) {
+	public ContaDTO criarConta(ContaDTO dto) {
+		Conta conta = dto.criarConta();	
+		
 		boolean existsByNumero = contaRepository.existsByNumero(conta.getNumero());
 		if(existsByNumero) {
 			throw new RuntimeException("Conta existente");
 		}
 		else {
 			contaRepository.save(conta);
-			return conta;
+			return new ContaDTO(conta);
 		}
 	}
 	
