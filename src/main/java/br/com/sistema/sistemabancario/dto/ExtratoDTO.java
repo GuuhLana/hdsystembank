@@ -9,8 +9,10 @@ import br.com.sistema.sistemabancario.entity.Extrato;
 public class ExtratoDTO {
 
 	private Long id;
-	private Long destino;
-	private Long origem;
+	Integer numeroContaOrigem;
+	Integer numeroAgenciaOrigem;
+	Integer numeroContaDestino;
+	Integer numeroAgenciaDestino;
 	private LocalDateTime dataTransferencia;
 	private double valor;
 
@@ -19,7 +21,8 @@ public class ExtratoDTO {
 	}
 
 	public Extrato criarExtrato() {
-		return new Extrato(destino, origem, dataTransferencia, valor);
+		return new Extrato(numeroContaOrigem, numeroAgenciaOrigem, numeroContaDestino, numeroAgenciaDestino,
+				dataTransferencia, valor);
 	}
 
 	public Long getId() {
@@ -30,20 +33,36 @@ public class ExtratoDTO {
 		this.id = id;
 	}
 
-	public Long getDestino() {
-		return destino;
+	public Integer getNumeroContaOrigem() {
+		return numeroContaOrigem;
 	}
 
-	public void setDestino(Long destino) {
-		this.destino = destino;
+	public void setNumeroContaOrigem(Integer numeroContaOrigem) {
+		this.numeroContaOrigem = numeroContaOrigem;
 	}
 
-	public Long getOrigem() {
-		return origem;
+	public Integer getNumeroAgenciaOrigem() {
+		return numeroAgenciaOrigem;
 	}
 
-	public void setOrigem(Long origem) {
-		this.origem = origem;
+	public void setNumeroAgenciaOrigem(Integer numeroAgenciaOrigem) {
+		this.numeroAgenciaOrigem = numeroAgenciaOrigem;
+	}
+
+	public Integer getNumeroContaDestino() {
+		return numeroContaDestino;
+	}
+
+	public void setNumeroContaDestino(Integer numeroContaDestino) {
+		this.numeroContaDestino = numeroContaDestino;
+	}
+
+	public Integer getNumeroAgenciaDestino() {
+		return numeroAgenciaDestino;
+	}
+
+	public void setNumeroAgenciaDestino(Integer numeroAgenciaDestino) {
+		this.numeroAgenciaDestino = numeroAgenciaDestino;
 	}
 
 	public LocalDateTime getDataTransferencia() {
@@ -64,8 +83,10 @@ public class ExtratoDTO {
 
 	public ExtratoDTO(Extrato extrato) {
 		this.id = extrato.getId();
-		this.destino = extrato.getDestino();
-		this.origem = extrato.getOrigem();
+		this.numeroContaOrigem = extrato.getNumeroContaOrigem();
+		this.numeroAgenciaOrigem = extrato.getNumeroAgenciaOrigem();
+		this.numeroContaDestino = extrato.getNumeroContaDestino();
+		this.numeroAgenciaDestino = extrato.getNumeroAgenciaDestino();
 		this.dataTransferencia = extrato.getDataTransferencia();
 		this.valor = extrato.getValor();
 	}

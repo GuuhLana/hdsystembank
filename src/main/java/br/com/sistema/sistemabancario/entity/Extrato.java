@@ -16,22 +16,26 @@ public class Extrato {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Long destino;
-	private Long origem;
+	Integer numeroContaOrigem;
+	Integer numeroAgenciaOrigem;
+	Integer numeroContaDestino;
+	Integer numeroAgenciaDestino;
 	private LocalDateTime dataTransferencia;
 	private double valor;
 
-	public Extrato(Long destino, Long origem, LocalDateTime dataTransferencia, double valor) {
-		this.destino = destino;
-		this.origem = origem;
+	public Extrato(Integer numeroContaOrigem, Integer numeroAgenciaOrigem, Integer numeroContaDestino,
+			Integer numeroAgenciaDestino, LocalDateTime dataTransferencia, double valor) {
+		this.numeroContaOrigem = numeroContaOrigem;
+		this.numeroAgenciaOrigem = numeroAgenciaOrigem;
+		this.numeroContaDestino = numeroContaDestino;
+		this.numeroAgenciaDestino = numeroAgenciaDestino;
 		this.dataTransferencia = dataTransferencia;
 		this.valor = valor;
 	}
 
 	public Extrato() {
-		
+
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -41,20 +45,36 @@ public class Extrato {
 		this.id = id;
 	}
 
-	public Long getDestino() {
-		return destino;
+	public Integer getNumeroContaOrigem() {
+		return numeroContaOrigem;
 	}
 
-	public void setDestino(Long destino) {
-		this.destino = destino;
+	public void setNumeroContaOrigem(Integer numeroContaOrigem) {
+		this.numeroContaOrigem = numeroContaOrigem;
 	}
 
-	public Long getOrigem() {
-		return origem;
+	public Integer getNumeroAgenciaOrigem() {
+		return numeroAgenciaOrigem;
 	}
 
-	public void setOrigem(Long origem) {
-		this.origem = origem;
+	public void setNumeroAgenciaOrigem(Integer numeroAgenciaOrigem) {
+		this.numeroAgenciaOrigem = numeroAgenciaOrigem;
+	}
+
+	public Integer getNumeroContaDestino() {
+		return numeroContaDestino;
+	}
+
+	public void setNumeroContaDestino(Integer numeroContaDestino) {
+		this.numeroContaDestino = numeroContaDestino;
+	}
+
+	public Integer getNumeroAgenciaDestino() {
+		return numeroAgenciaDestino;
+	}
+
+	public void setNumeroAgenciaDestino(Integer numeroAgenciaDestino) {
+		this.numeroAgenciaDestino = numeroAgenciaDestino;
 	}
 
 	public LocalDateTime getDataTransferencia() {
@@ -65,7 +85,6 @@ public class Extrato {
 		this.dataTransferencia = dataTransferencia;
 	}
 
-
 	public double getValor() {
 		return valor;
 	}
@@ -73,6 +92,5 @@ public class Extrato {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	
 
 }

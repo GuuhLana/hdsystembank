@@ -21,17 +21,16 @@ public class ContaController {
 	@Autowired
 	private ContaService contaService;
 
-	@GetMapping(path = "/saldo/{id}")
-	public ResponseEntity<?> consultarSaldo(@PathVariable Long id) {
+	@GetMapping(path = "/saldo/{numeroConta}/{numeroAgencia}")
+	public ResponseEntity<?> consultarSaldo(@PathVariable Integer numeroConta, @PathVariable Integer numeroAgencia) {
 		try {
-			SaldoResponse saldo = contaService.verificarSaldo(id);
+			SaldoResponse saldo = contaService.verificarSaldo(numeroConta, numeroAgencia);
 			return new ResponseEntity<SaldoResponse>(saldo, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
+
 	@PostMapping(path = "/cadastrar")
 	public ResponseEntity<?> criarConta(@RequestBody ContaDTO dto) {
 		try {
@@ -41,12 +40,12 @@ public class ContaController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
 
 	@PostMapping(path = "/transferir")
 	public ResponseEntity<String> transferir(@RequestBody transferenciaRequest request) {
 		try {
-			contaService.transferir(request.getIdOrigem(), request.getIdDestino(), request.getValor());
+			contaService.transferir(request.getContaOrigemNumero(), request.getContaOrigemAgencia(),
+					request.getContaDestinoNumero(), request.getContaDestinoAgencia(), request.getValor());
 			return new ResponseEntity<String>("Transferencia realizada com sucesso", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

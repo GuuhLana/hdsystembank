@@ -16,8 +16,8 @@ public class Conta {
 	private Long id;
 	
 	private String titular;
-	private String numero;
-	private String agencia;
+	private Integer numero;
+	private Integer agencia;
 	private double saldo;
 	
 	
@@ -37,19 +37,19 @@ public class Conta {
 		this.titular = titular;
 	}
 
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
-	public String getAgencia() {
+	public Integer getAgencia() {
 		return agencia;
 	}
 
-	public void setAgencia(String agencia) {
+	public void setAgencia(Integer agencia) {
 		this.agencia = agencia;
 	}
 
@@ -69,7 +69,7 @@ public class Conta {
 		this.saldo += valor;
 	}
 
-	public Conta(String titular, String numero, String agencia, double saldo) {
+	public Conta(String titular, Integer numero, Integer agencia, double saldo) {
 		this.titular = titular;
 		this.numero = numero;
 		this.agencia = agencia;

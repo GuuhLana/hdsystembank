@@ -6,8 +6,8 @@ public class ContaDTO {
 
 	private Long id;
 	private String titular;
-	private String numero;
-	private String agencia;
+	private int numero;
+	private int agencia;
 	private double saldo;
 	
 	public Conta criarConta() {
@@ -42,19 +42,19 @@ public class ContaDTO {
 		this.titular = titular;
 	}
 
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
-	public String getAgencia() {
+	public int getAgencia() {
 		return agencia;
 	}
 
-	public void setAgencia(String agencia) {
+	public void setAgencia(int agencia) {
 		this.agencia = agencia;
 	}
 

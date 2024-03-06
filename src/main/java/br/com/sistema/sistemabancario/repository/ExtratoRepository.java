@@ -8,8 +8,8 @@ import br.com.sistema.sistemabancario.entity.Extrato;
 
 public interface ExtratoRepository extends JpaRepository<Extrato, Long>{
 
-	List<Extrato> findAllByOrigem(Long origem);
-
-	List<Extrato> findAllByDestino(Long destino);
+	List<Extrato> findAllByNumeroContaOrigemAndNumeroAgenciaOrigem(Integer numero, Integer agencia);
+	
+	List<Extrato> findAllByNumeroContaDestinoAndNumeroAgenciaDestino(Integer numero, Integer agencia);
 
 }

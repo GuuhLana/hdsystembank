@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sistema.sistemabancario.dto.ExtratoDTO;
+import br.com.sistema.sistemabancario.model.extratoRequest;
 import br.com.sistema.sistemabancario.service.ExtratoService;
 
 @RestController
@@ -18,15 +20,18 @@ import br.com.sistema.sistemabancario.service.ExtratoService;
 public class ExtratoController {
 	@Autowired
 	private ExtratoService extratoService; 
-
-	@GetMapping(path = "/consultar/{numeroConta}")
-	public ResponseEntity<?> consultaExtrato(@PathVariable Long numeroConta){
+	
+	@GetMapping(path = "/consultar")
+	public ResponseEntity<?> consultaExtrato(@RequestBody extratoRequest request){
 		try {
-			List<ExtratoDTO> extratos = extratoService.consultaExtrato(numeroConta);
+			Integer nmrConta = request.getContaNumero();
+			Integer nmrAgencia = request.getContaAgencia();
+			
+			List<ExtratoDTO> extratos = extratoService.consultaExtrato(nmrConta, nmrAgencia);
 			return new ResponseEntity<List<ExtratoDTO>>(extratos, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}	
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 		
 	}
 }

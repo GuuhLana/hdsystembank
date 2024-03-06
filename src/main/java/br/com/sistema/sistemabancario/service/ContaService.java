@@ -22,16 +22,18 @@ public class ContaService {
 	@Autowired
 	private ExtratoRepository extratoRepository;
 
-	public SaldoResponse verificarSaldo(Long id) {
-		Optional<Conta> conta = contaRepository.findById(id);
-		SaldoResponse saldo = new SaldoResponse(conta.get().getNumero(), conta.get().getTitular() , conta.get().getSaldo());
-		
+	public SaldoResponse verificarSaldo(Integer numeroConta, Integer numeroAgencia) {
+		Optional<Conta> conta = contaRepository.findByNumeroAndAgencia(numeroConta, numeroAgencia);
+		SaldoResponse saldo = new SaldoResponse(conta.get().getNumero(), conta.get().getTitular(),
+				conta.get().getSaldo());
+
 		return saldo;
 	}
 
-	public void transferir(Long origem, Long destino, double valor) {
-		Optional<Conta> contaOrigem = contaRepository.findById(origem);
-		Optional<Conta> contaDestino = contaRepository.findById(destino);
+	public void transferir(Integer numeroContaOrigem, Integer numeroAgenciaOrigem, Integer numeroContaDestino,
+			Integer numeroAgenciaDestino, double valor) {
+		Optional<Conta> contaOrigem = contaRepository.findByNumeroAndAgencia(numeroContaOrigem, numeroAgenciaOrigem);
+		Optional<Conta> contaDestino = contaRepository.findByNumeroAndAgencia(numeroContaDestino, numeroAgenciaDestino);
 
 		if (contaOrigem.get().getSaldo() >= valor) {
 			contaOrigem.get().transferir(valor);
@@ -40,27 +42,32 @@ public class ContaService {
 			contaRepository.save(contaOrigem.get());
 			contaRepository.save(contaDestino.get());
 
-			Extrato log = new Extrato(contaDestino.get().getId(), contaOrigem.get().getId(), LocalDateTime.now(),
-					valor);
+			Extrato log = new Extrato(contaOrigem.get().getNumero(), contaOrigem.get().getAgencia(),
+					contaDestino.get().getNumero(), contaDestino.get().getAgencia(), LocalDateTime.now(), valor);
 
 			extratoRepository.save(log);
 		} else {
-			throw new RuntimeException("NÃ£o foi possivel realizar a transferencia, verifique os valores inseridos");
+			throw new RuntimeException("Não foi possivel realizar a transferencia, verifique os valores inseridos");
 		}
 
 	}
 
 	public ContaDTO criarConta(ContaDTO dto) {
-		Conta conta = dto.criarConta();	
-		
-		boolean existsByNumero = contaRepository.existsByNumero(conta.getNumero());
-		if(existsByNumero) {
-			throw new RuntimeException("Conta existente");
-		}
-		else {
+		Conta conta = dto.criarConta();
+
+		boolean existeConta = contaRepository.existsByNumeroAndAgencia(conta.getNumero(), conta.getAgencia());
+
+		if (existeConta) {
+			throw new RuntimeException("Já existe uma conta cadastrada na agencia: " + conta.getAgencia()
+					+ " com o número: " + conta.getNumero());
+		} else {
 			contaRepository.save(conta);
 			return new ContaDTO(conta);
 		}
 	}
-	
+
+	public void depositar() {
+
+	}
+
 }

@@ -14,16 +14,17 @@ public class ExtratoService {
 
 	@Autowired
 	private ExtratoRepository extratoRepository;
-	
-	public List<ExtratoDTO> consultaExtrato(Long numeroConta){
-		
-		List<Extrato> extrato = extratoRepository.findAllByDestino(numeroConta);
-		List<Extrato> findAllByOrigem = extratoRepository.findAllByOrigem(numeroConta);
-		extrato.addAll(findAllByOrigem);
-		
+
+	public List<ExtratoDTO> consultaExtrato(Integer numeroConta, Integer numeroAgencia) {
+
+		List<Extrato> listaTodosPeloDestino = extratoRepository.findAllByNumeroContaDestinoAndNumeroAgenciaDestino(numeroConta, numeroAgencia);
+		List<Extrato> listaTodosPeloOrigem = extratoRepository
+				.findAllByNumeroContaOrigemAndNumeroAgenciaOrigem(numeroConta, numeroAgencia);
+		listaTodosPeloDestino.addAll(listaTodosPeloOrigem);
+
 		ExtratoDTO extratoDto = new ExtratoDTO();
-		List<ExtratoDTO> list = extratoDto.converter(extrato);
-		
+		List<ExtratoDTO> list = extratoDto.converter(listaTodosPeloDestino);
+
 		return list;
 	}
 }
