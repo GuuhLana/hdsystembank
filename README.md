@@ -24,7 +24,7 @@ Este projeto consiste no desenvolvimento de uma aplicação similar a um sistema
 Para executar a aplicação, basta clonar o repositório Git e executar a aplicação Spring Boot. Certifique-se de ter todas as dependências necessárias instaladas e configuradas corretamente.
 
 ## Documentação da API
-Disponível através do Swagger. Ao executar a aplicação, você pode acessar a documentação em http://localhost:8080/swagger-ui.html.
+Disponível através do Swagger. Ao executar a aplicação, você pode acessar a documentação em /swagger-ui.html.
 
 
 ## Referência
