@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.sistema.sistemabancario.dto.ExtratoDTO;
 import br.com.sistema.sistemabancario.model.extratoRequest;
 import br.com.sistema.sistemabancario.service.ExtratoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/extrato")
+@Api(tags = "Extrato", description = "Operações de extratos bancarios")
 public class ExtratoController {
 	@Autowired
 	private ExtratoService extratoService; 
 	
+	@ApiOperation(value = "Retorna o extrato da conta selecionada")
 	@GetMapping(path = "/consultar")
 	public ResponseEntity<?> consultaExtrato(@RequestBody extratoRequest request){
 		try {

@@ -24,7 +24,7 @@ public class ContaService {
 
 	public SaldoResponse verificarSaldo(Integer numeroConta, Integer numeroAgencia) {
 		Optional<Conta> conta = contaRepository.findByNumeroAndAgencia(numeroConta, numeroAgencia);
-		SaldoResponse saldo = new SaldoResponse(conta.get().getNumero(), conta.get().getTitular(),
+		SaldoResponse saldo = new SaldoResponse(conta.get().getNumero(), conta.get().getAgencia(), conta.get().getTitular(),
 				conta.get().getSaldo());
 
 		return saldo;
@@ -35,9 +35,14 @@ public class ContaService {
 		Optional<Conta> contaOrigem = contaRepository.findByNumeroAndAgencia(numeroContaOrigem, numeroAgenciaOrigem);
 		Optional<Conta> contaDestino = contaRepository.findByNumeroAndAgencia(numeroContaDestino, numeroAgenciaDestino);
 
+	    // Calcula a taxa de 2%
+	    double taxa = valor * 0.02;
+	    
 		if (contaOrigem.get().getSaldo() >= valor) {
+			double valorTaxado = valor - taxa;
+			
 			contaOrigem.get().transferir(valor);
-			contaDestino.get().receberTransferencia(valor);
+			contaDestino.get().receberTransferencia(valorTaxado);
 
 			contaRepository.save(contaOrigem.get());
 			contaRepository.save(contaDestino.get());
@@ -66,8 +71,22 @@ public class ContaService {
 		}
 	}
 
-	public void depositar() {
+	public void depositarNaConta() {
+		//A fazer, criar método de deposito bancario
+	}
+	
+	public String deletarConta(Long id) {
 
+		Long idConta = id;
+
+		boolean existeConta = contaRepository.existsById(idConta);
+		
+		if (existeConta) {
+			contaRepository.deleteById(idConta);
+			return "Conta deleta com sucesso";
+		} else {
+			throw new RuntimeException("Conta não existe");
+		}
 	}
 
 }

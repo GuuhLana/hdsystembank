@@ -3,6 +3,7 @@ package br.com.sistema.sistemabancario.model;
 public class SaldoResponse {
 
 	private Integer numeroConta;
+	private Integer numeroAgencia;
 	private String nomeTitular;
 	private double saldo;
 
@@ -21,6 +22,14 @@ public class SaldoResponse {
 	public void setNumeroConta(Integer numeroConta) {
 		this.numeroConta = numeroConta;
 	}
+	
+	public Integer getNumeroAgencia() {
+		return numeroAgencia;
+	}
+
+	public void setNumeroAgencia(Integer numeroAgencia) {
+		this.numeroAgencia = numeroAgencia;
+	}
 
 	public double getSaldo() {
 		return saldo;
@@ -30,8 +39,9 @@ public class SaldoResponse {
 		this.saldo = saldo;
 	}
 
-	public SaldoResponse(Integer numeroConta, String nomeTitular, double saldo) {
+	public SaldoResponse(Integer numeroConta, Integer numeroAgencia, String nomeTitular, double saldo) {
 		this.numeroConta = numeroConta;
+		this.numeroAgencia = numeroAgencia;
 		this.saldo = saldo;
 		this.nomeTitular = nomeTitular;
 	}
